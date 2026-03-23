@@ -7,7 +7,7 @@ public class ProductDAO {
     public void saveProduct(Product product) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
-        session.save(product);
+        session.persist(product);
         tx.commit();
         session.close();
     }
@@ -23,15 +23,15 @@ public class ProductDAO {
         Product product = session.get(Product.class, id);
         product.setPrice(price);
         product.setQuantity(quantity);
-        session.update(product);
+        session.merge(product);
         tx.commit();
         session.close();
     }
     public void deleteProduct(int id) {
         Session session = HibernateUtil.getSessionFactory().openSession();
         Transaction tx = session.beginTransaction();
- Product product = session.get(Product.class, id);
-        session.delete(product);
+        Product product = session.get(Product.class, id);
+        session.remove(product);
         tx.commit();
         session.close();
     }

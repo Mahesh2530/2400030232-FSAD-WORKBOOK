@@ -1,6 +1,5 @@
 package com.klu.main;
 
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import com.klu.config.AppConfig;
@@ -10,11 +9,13 @@ public class MainApp {
 
     public static void main(String[] args) {
 
-        ApplicationContext context =
+        AnnotationConfigApplicationContext context =
                 new AnnotationConfigApplicationContext(AppConfig.class);
-
-        Student student = context.getBean(Student.class);
-
-        student.display();
+        try {
+            Student student = context.getBean(Student.class);
+            student.display();
+        } finally {
+            context.close();
+        }
     }
 }
